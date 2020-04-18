@@ -1,9 +1,14 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+
+import { renderWithRouter } from '../component-test-utils';
+
 import App from '.';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe('App', () => {
+  it('should default the user to the search page', () => {
+    const { getByText } = renderWithRouter(<App />);
+    const searchButton = getByText(/search/i, { selector: 'button' });
+    expect(searchButton).toBeInTheDocument();
+  });
+})
+
