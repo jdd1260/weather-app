@@ -24,7 +24,7 @@ export function getCurrentWeather({ lat, lon }, units='imperial') {
   humidity: main.humidity,
   wind: wind.speed,
   icon: `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`,
-  date: toDate((dt+timezone)*1000)
+  date: toDate((dt+timezone)*1000 + (new Date()).getTimezoneOffset()*60*1000)
  }));
 }
 

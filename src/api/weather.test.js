@@ -27,12 +27,12 @@ describe('Weather API', () => {
       expect(iconData).toBeTruthy();
     });
 
-    it('should provide a date that makes sense', () => {
+    it('should provide a date that is recent', () => {
       const isBetweenYesterdayAndTomorrow = dateFns.isWithinInterval(
         conditions.date,
         {
-          start: dateFns.startOfYesterday(),
-          end: dateFns.endOfTomorrow()
+          start: dateFns.sub(new Date(), { hours: 1 }),
+          end: new Date()
         }
       );
       expect(isBetweenYesterdayAndTomorrow).toBe(true);
