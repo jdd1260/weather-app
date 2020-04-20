@@ -3,10 +3,10 @@ import { fireEvent } from '@testing-library/react';
 
 import { renderWithRouter } from '../component-test-utils';
 
-import Search from '.';
+import App from '../app';
 import * as places from '../../api/places';
 
-describe('Search component', () => {
+describe('Search page', () => {
   describe('With search results found', () => {
     let placeSearchSpy;
     const locations = [
@@ -29,7 +29,7 @@ describe('Search component', () => {
     afterEach(() => placeSearchSpy.mockRestore());
   
     it('should allow user to enter a location search via a button, view results, and select correct city', async () => {
-      const { getByPlaceholderText, getByText, findByText, history } = renderWithRouter(<Search />);
+      const { getByPlaceholderText, getByText, findByText, history } = renderWithRouter(<App />);
       const input = getByPlaceholderText(/location/i);
       const button = getByText(/search/i, { selector: 'button' });
   
@@ -46,7 +46,7 @@ describe('Search component', () => {
     });
   
     it('should allow user to enter a location search by submitting form, view results, and select correct city', async () => {
-      const { getByPlaceholderText, findByText, history } = renderWithRouter(<Search />);
+      const { getByPlaceholderText, findByText, history } = renderWithRouter(<App />);
       const input = getByPlaceholderText(/location/i);
   
       fireEvent.change(input, { target: { value: 'Place' }});
@@ -72,7 +72,7 @@ describe('Search component', () => {
     afterEach(() => placeSearchSpy.mockRestore());
   
     it('should show a message stating no results', async () => {
-      const { getByPlaceholderText, findByText } = renderWithRouter(<Search />);
+      const { getByPlaceholderText, findByText } = renderWithRouter(<App />);
       const input = getByPlaceholderText(/location/i);
   
       fireEvent.change(input, { target: { value: 'Place' }});
@@ -92,7 +92,7 @@ describe('Search component', () => {
     afterEach(() => placeSearchSpy.mockRestore());
   
     it('should show a generic error message without details', async () => {
-      const { getByPlaceholderText, getByText, findByText, queryByText } = renderWithRouter(<Search />);
+      const { getByPlaceholderText, getByText, findByText, queryByText } = renderWithRouter(<App />);
       const input = getByPlaceholderText(/location/i);
       const button = getByText(/search/i, { selector: 'button' });
   
