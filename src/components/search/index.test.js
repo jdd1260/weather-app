@@ -43,6 +43,7 @@ describe('Search page', () => {
       fireEvent.click(link1);
   
       expect(history.location.pathname).toEqual('/locations/lat/1/lon/2');
+      expect(history.location.search).toEqual('?name=Place%201');
     });
   
     it('should allow user to enter a location search by submitting form, view results, and select correct city', async () => {
@@ -57,8 +58,8 @@ describe('Search page', () => {
       expect(placeSearchSpy).toHaveBeenCalledWith('Place');
   
       fireEvent.click(link2);
-  
       expect(history.location.pathname).toEqual('/locations/lat/-100/lon/-200');
+      expect(history.location.search).toEqual('?name=Place%202');
     });
   });
 

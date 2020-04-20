@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useForm } from 'react-hook-form'
+import * as qs from 'qs';
 
 
 import * as places from '../../api/places';
@@ -39,7 +40,7 @@ export default function Search() {
       </form>
 
       { locations.map(location => (
-        <Link key={location.name} to={`/locations/lat/${location.lat}/lon/${location.lon}`}>
+        <Link key={location.name} to={`/locations/lat/${location.lat}/lon/${location.lon}?${qs.stringify({ name: location.name })}`}>
           <div>
             { location.name }
           </div>

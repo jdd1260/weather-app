@@ -12,7 +12,7 @@ describe('App', () => {
   });
   it('should take the user to the current weather page for input coordinates', async () => {
     const { findByText, history } = renderWithRouter(<App />);
-    history.push('/locations/lat/47.2495798/lon/-122.4398746');
+    history.push('/locations/lat/47.2495798/lon/-122.4398746?name=Tacoma');
     const titleText = await findByText(/Weather for Tacoma/i);
     expect(titleText).toBeInTheDocument();
   });
