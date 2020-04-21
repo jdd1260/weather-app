@@ -1,0 +1,20 @@
+#Search {
+  .form {
+    text-align: center;
+    .input {
+      margin: 25px;
+    }
+  }
+  .results {
+    font-size: 1.2em;
+    .link {
+      margin-top: 5px;
+    }
+    text-align: center;
+    margin-top: 20px;
+    &.error {
+      color: red;
+    }
+
+  }
+}

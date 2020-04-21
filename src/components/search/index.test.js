@@ -31,7 +31,7 @@ describe('Search page', () => {
     it('should allow user to enter a location search via a button, view results, and select correct city', async () => {
       const { getByPlaceholderText, getByText, findByText, history } = renderWithRouter(<App />);
       const input = getByPlaceholderText(/location/i);
-      const button = getByText(/search/i, { selector: 'button' });
+      const button = getByText(/search/i);
   
       fireEvent.change(input, { target: { value: 'Place' }});
       fireEvent.click(button);
@@ -46,12 +46,15 @@ describe('Search page', () => {
       expect(history.location.search).toEqual('?name=Place%201');
     });
   
-    it('should allow user to enter a location search by submitting form, view results, and select correct city', async () => {
+    it('should allow user to enter a location search by hitting enter, view results, and select correct city', async () => {
       const { getByPlaceholderText, findByText, history } = renderWithRouter(<App />);
       const input = getByPlaceholderText(/location/i);
   
       fireEvent.change(input, { target: { value: 'Place' }});
-      fireEvent.submit(input);
+      fireEvent.keyDown(input, {
+        key: "Enter",
+        keyCode: 13 
+      });
   
       const link2 = await findByText('Place 2');
   
@@ -77,7 +80,10 @@ describe('Search page', () => {
       const input = getByPlaceholderText(/location/i);
   
       fireEvent.change(input, { target: { value: 'Place' }});
-      fireEvent.submit(input);
+      fireEvent.keyDown(input, {
+        key: "Enter",
+        keyCode: 13 
+      });
   
       await findByText(/there were no results matching your search text/i);
     });
@@ -95,7 +101,7 @@ describe('Search page', () => {
     it('should show a generic error message without details', async () => {
       const { getByPlaceholderText, getByText, findByText, queryByText } = renderWithRouter(<App />);
       const input = getByPlaceholderText(/location/i);
-      const button = getByText(/search/i, { selector: 'button' });
+      const button = getByText(/search/i);
   
       fireEvent.change(input, { target: { value: 'Place' }});
       fireEvent.click(button);

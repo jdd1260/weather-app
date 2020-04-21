@@ -7,7 +7,7 @@ import App from '.';
 describe('App', () => {
   it('should default the user to the search page', () => {
     const { getByText } = renderWithRouter(<App />);
-    const searchButton = getByText(/search/i, { selector: 'button' });
+    const searchButton = getByText(/search/i);
     expect(searchButton).toBeInTheDocument();
   });
   it('should take the user to the current weather page for input coordinates', async () => {
