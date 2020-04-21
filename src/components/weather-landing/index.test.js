@@ -6,13 +6,17 @@ import { renderWithRouter } from '../component-test-utils';
 import App from '../app';
 import * as weatherApi from '../../api/weather';
 
-describe('CurrentWeather page', () => {
+describe('Weather Landing page', () => {
   describe('With weather results found', () => {
     let getWeatherSpy;
+    const date = new Date(2020, 6, 4, 10,27,44,800);
     const conditions = {
       current: {
-        date: new Date(2020, 6, 4, 10,27,44,800)
-      }
+        date,
+        temperature: 47
+      },
+      hourly: [{ temperature: 50, date }],
+      daily: [{ max: 53, date, sunrise: date, sunset: date }]
     };
   
     beforeEach(() => {
@@ -21,9 +25,13 @@ describe('CurrentWeather page', () => {
   
     afterEach(() => getWeatherSpy.mockRestore());
   
-    it('should get and display formatted current weather for location from the URL', async () => {
-      const { findByText } = renderWithRouter(<App />, { route: '/locations/lat/47/lon/-100?name=Place'});
+    it('should get and display formatted current, daily, and hourly weather for location from the URL', async () => {
+      const { findByText, getByText } = renderWithRouter(<App />, { route: '/locations/lat/47/lon/-100?name=Place'});
       await findByText('Weather for Place at 10:27 AM Local Time on July 4, 2020');
+      getByText(/47°/);
+      getByText(/50°/);
+      getByText(/53°/);
+
       expect(getWeatherSpy).toHaveBeenCalledWith({ lat: '47', lon: '-100' }, 'imperial');
     }); 
   

@@ -5,6 +5,8 @@ import * as qs from "qs";
 
 import * as weatherApi from "../../api/weather";
 import CurrentWeather from "../current-weather";
+import DailyWeather from "../daily-weather";
+import HourlyWeather from "../hourly-weather";
 
 export default function WeatherLanding() {
   const { lat, lon } = useParams();
@@ -42,6 +44,8 @@ export default function WeatherLanding() {
       <button onClick={() => setUnits('metric')}  className={units=== 'metric' ? 'selected' : ''}>C</button>
 
       <CurrentWeather conditions={conditions.current} units={units} />
+      <HourlyWeather forecast={conditions.hourly} units={units} />
+      <DailyWeather forecast={conditions.daily} units={units} />
     </div>
   )
 }
