@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "history": "^4.10.1",
+    "lodash": "^4.17.15",
     "mutationobserver-shim": "^0.3.5",
     "node-sass": "^4.13.1"
   }
