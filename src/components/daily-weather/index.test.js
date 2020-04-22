@@ -35,8 +35,9 @@ describe('DailyWeather', () => {
     expect(dayRows.length).toEqual(2);
 
     const day1 = dayRows[0];
-    getByText(day1, '07/04/2020')
-    getByText(day1, '51° F / 47° F')
+    getByText(day1, 'Sat 07/04/2020')
+    getByText(day1, '8:00 AM / 8:47 PM');
+    getByText(day1, '51° F / 47° F');
     getByText(day1, '3.44');
     getByText(day1, '50%');
     getByText(day1, 'sunny');
@@ -44,8 +45,9 @@ describe('DailyWeather', () => {
     expect(icon.src).toEqual(forecast[0].icon);
 
     const day2 = dayRows[1];
-    getByText(day2, '07/05/2020')
-    getByText(day2, '50° F / 48° F')
+    getByText(day2, 'Sun 07/05/2020');
+    getByText(day2, '8:01 AM / 8:49 PM');
+    getByText(day2, '50° F / 48° F');
     getByText(day2, '3');
     getByText(day2, '51.3%');
     getByText(day2, 'mostly sunny');

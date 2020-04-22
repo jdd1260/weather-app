@@ -1,34 +1,41 @@
 import React from 'react';
 import formatDate from 'date-fns/format';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 import { displayTemp } from '../utils';
 
 export default function HourlyWeather({ forecast, units ='imperial' }) {  
   if (!forecast) return null;
   return (
-    <div id="HourlyWeather">
-      <h1> 48 Hour Forecast </h1>
-      <table>
-        <thead>
-          <tr>
-            <td> Time </td>
-            <td/>
-            <td> Description </td>
-            <td> Temperature </td>
-          </tr>
-        </thead>
-        <tbody>
-          {forecast.map((conditions, index) => (
-            <tr key={conditions.date} data-testid={'hour-'+index}>
-              <td> { formatDate(conditions.date, 'p')} </td>
-              <td><img src={conditions.icon} alt={conditions.description} /></td>
-              <td> {conditions.description} </td>
-              <td> {displayTemp(conditions.temperature, units)} </td>
-            </tr>
+    <TableContainer id="HourlyWeather" className="weather-table-container">
+      <Table size="small" stickyHeader>
+        <TableHead>
+          <TableRow>
+            <TableCell> Time </TableCell>
+            <TableCell/>
+            <TableCell>Description</TableCell>
+            <TableCell>Temperature</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          { forecast.map((conditions, index) => (
+            <TableRow key={conditions.date} data-testid={'hour-'+index}>
+              <TableCell> { formatDate(conditions.date, 'eee p')} </TableCell>
+              <TableCell>
+                <img src={conditions.icon} alt={conditions.description} className="weather-icon" />
+              </TableCell>
+              <TableCell className="weather-description"> {conditions.description} </TableCell>
+              <TableCell> {displayTemp(conditions.temperature, units)} </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 

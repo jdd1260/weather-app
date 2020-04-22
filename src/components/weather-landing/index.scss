@@ -1,13 +1,25 @@
 #WeatherLanding {
   .units-buttons {
     position: fixed;
-    right: 0;
+    right: 30px;
     top: 30px;
-    width: 20%;
+    z-index: 100;
   }
   .title {
     margin: 20px;
     font-size: 1.5em;
     width: 80%;
+  }
+
+  .weather-table-container {
+    height: 500px;
+  }
+
+  img.weather-icon {
+    border-radius: 50%;
+    background-color: lightskyblue;
+  }
+  .weather-description {
+    text-transform: capitalize;
   }
 }

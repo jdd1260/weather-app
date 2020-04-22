@@ -6,9 +6,8 @@ export default function CurrentWeather({ conditions, units ='imperial' }) {
   if (!conditions) return null;
   return (
     <div id="CurrentWeather">
-      <h1> Current Weather </h1>
-      <img src={conditions.icon} alt={conditions.description} />
-      <div>{ conditions.description }</div>
+      <img src={conditions.icon} alt={conditions.description} className="weather-icon" />
+      <div className="weather-description">{ conditions.description }</div>
       <h2> 
         {displayTemp(conditions.temperature, units)}   
       </h2>

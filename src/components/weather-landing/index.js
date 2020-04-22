@@ -23,6 +23,7 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
+      className="tab-panel"
       {...other}
     >
       {value === index && <Box p={3}>{children}</Box>}
@@ -71,8 +72,8 @@ export default function WeatherLanding() {
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Current" />
-          <Tab label="48 Hour Forecast"  />
-          <Tab label="7 Day Forecast"  />
+          <Tab label="48 Hour"  />
+          <Tab label="7 Day"  />
         </Tabs>
       </AppBar>
       <ButtonGroup color="secondary" className="units-buttons">
@@ -84,7 +85,6 @@ export default function WeatherLanding() {
  
       </div>
 
-      
       <TabPanel value={value} index={0}>
         <CurrentWeather conditions={conditions.current} units={units} />
       </TabPanel>

@@ -38,7 +38,7 @@ describe('Weather Landing page', () => {
       await findByText('Place at 10:27 AM Local Time on July 4, 2020');
 
       expect(queryByText(/50°/)).not.toBeInTheDocument();
-      fireEvent.click(queryByText(/48 Hour Forecast/i));
+      fireEvent.click(queryByText(/48 Hour/i));
       expect(queryByText(/50°/)).toBeInTheDocument();
 
       expect(getWeatherSpy).toHaveBeenCalledTimes(1);
@@ -49,7 +49,7 @@ describe('Weather Landing page', () => {
       await findByText('Place at 10:27 AM Local Time on July 4, 2020');
 
       expect(queryByText(/53°/)).not.toBeInTheDocument();
-      fireEvent.click(queryByText(/7 Day Forecast/i));
+      fireEvent.click(queryByText(/7 Day/i));
       expect(queryByText(/53°/)).toBeInTheDocument();
 
       expect(getWeatherSpy).toHaveBeenCalledTimes(1);
