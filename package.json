@@ -20,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "yarn build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^2.2.0",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
     "mutationobserver-shim": "^0.3.5",
