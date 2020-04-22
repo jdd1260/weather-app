@@ -25,38 +25,66 @@ describe('Weather Landing page', () => {
   
     afterEach(() => getWeatherSpy.mockRestore());
   
-    it('should get and display formatted current, daily, and hourly weather for location from the URL', async () => {
-      const { findByText, getByText } = renderWithRouter(<App />, { route: '/locations/lat/47/lon/-100?name=Place'});
-      await findByText('Weather for Place at 10:27 AM Local Time on July 4, 2020');
-      getByText(/47°/);
-      getByText(/50°/);
-      getByText(/53°/);
+    it('should get and display weather, defaulting to current', async () => {
+      const { findByText, queryByText } = renderWithRouter(<App />, { route: '/locations/lat/47/lon/-100?name=Place'});
+      await findByText('Place at 10:27 AM Local Time on July 4, 2020');
+      expect(queryByText(/47°/)).toBeInTheDocument();
 
       expect(getWeatherSpy).toHaveBeenCalledWith({ lat: '47', lon: '-100' }, 'imperial');
     }); 
   
+    it('should get and display hourly forecast after clicking on that tab', async () => {
+      const { findByText, queryByText } = renderWithRouter(<App />, { route: '/locations/lat/47/lon/-100?name=Place'});
+      await findByText('Place at 10:27 AM Local Time on July 4, 2020');
+
+      expect(queryByText(/50°/)).not.toBeInTheDocument();
+      fireEvent.click(queryByText(/48 Hour Forecast/i));
+      expect(queryByText(/50°/)).toBeInTheDocument();
+
+      expect(getWeatherSpy).toHaveBeenCalledTimes(1);
+    }); 
+
+    it('should get and display daily forecast after clicking on that tab', async () => {
+      const { findByText, queryByText } = renderWithRouter(<App />, { route: '/locations/lat/47/lon/-100?name=Place'});
+      await findByText('Place at 10:27 AM Local Time on July 4, 2020');
+
+      expect(queryByText(/53°/)).not.toBeInTheDocument();
+      fireEvent.click(queryByText(/7 Day Forecast/i));
+      expect(queryByText(/53°/)).toBeInTheDocument();
+
+      expect(getWeatherSpy).toHaveBeenCalledTimes(1);
+    }); 
+  
     it('should display coordinates if name not provided in query string', async () => {
       const { findByText } = renderWithRouter(<App />, { route: '/locations/lat/47/lon/-100'});
-      await findByText('Weather for Latitude 47, Longitude -100 at 10:27 AM Local Time on July 4, 2020');
+      await findByText('Latitude 47, Longitude -100 at 10:27 AM Local Time on July 4, 2020');
       expect(getWeatherSpy).toHaveBeenCalledWith({ lat: '47', lon: '-100' }, 'imperial');
     }); 
   
     it('should display weather in Fahrenheit by default', async () => {
       const { findByText, queryAllByText } = renderWithRouter(<App />, { route: '/locations/lat/47/lon/-100?name=Place'});
-      const imperialButton = await findByText('F', { selector: 'button' });
-      expect(imperialButton.className).toEqual('selected');
+      const imperialButton = await findByText((_, element) => element.textContent === 'F' && element.className.includes('MuiButtonGroup-groupedOutlinedSecondary'));
+      const metricButton = await findByText((_, element) => element.textContent === 'C' && element.className.includes('MuiButtonGroup-groupedOutlinedSecondary'));
+      expect(imperialButton.className).toContain('MuiButton-containedSecondary');
+      expect(metricButton.className).not.toContain('MuiButton-containedSecondary');
       expect(queryAllByText(/° F/).length).toBeGreaterThan(0);
       expect(queryAllByText(/° C/).length).toEqual(0);
     }); 
   
     it('should support using Celsius', async () => {
       const { findByText, queryAllByText } = renderWithRouter(<App />, { route: '/locations/lat/47/lon/-100?name=Place'});
-      let metricButton = await findByText('C', { selector: 'button' });
+      let imperialButton = await findByText((_, element) => element.textContent === 'F' && element.className.includes('MuiButtonGroup-groupedOutlinedSecondary'));
+      let metricButton = await findByText((_, element) => element.textContent === 'C' && element.className.includes('MuiButtonGroup-groupedOutlinedSecondary'));
+      expect(imperialButton.className).toContain('MuiButton-containedSecondary');
+      expect(metricButton.className).not.toContain('MuiButton-containedSecondary');
+      
       fireEvent.click(metricButton);
-      metricButton = await findByText('C', { selector: 'button' });
-      expect(metricButton.className).toEqual('selected');
-      expect(queryAllByText(/° C/).length).toBeGreaterThan(0);
+      imperialButton = await findByText((_, element) => element.textContent === 'F' && element.className.includes('MuiButtonGroup-groupedOutlinedSecondary'));
+       metricButton = await findByText((_, element) => element.textContent === 'C' && element.className.includes('MuiButtonGroup-groupedOutlinedSecondary'));
+      expect(imperialButton.className).not.toContain('MuiButton-containedSecondary');
+      expect(metricButton.className).toContain('MuiButton-containedSecondary');
       expect(queryAllByText(/° F/).length).toEqual(0);
+      expect(queryAllByText(/° C/).length).toBeGreaterThan(0);
     }); 
   });
 });
