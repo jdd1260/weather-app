@@ -1,4 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Weather By Joel
+
+This is a single-page-application (SPA) that uses open source APIs to support a simple weather app. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Get started
+
+Copy `.env-example` to `.env`. Go to https://opencagedata.com/api to get a weather API key and https://opencagedata.com/api to get a location API key. Copy each of these values into their corresponding locations in your `.env` file. 
+
+I suggest using [nvm](https://github.com/nvm-sh/nvm) and running `nvm install` to use the version of node.js this project was developed with. 
+
+Run `yarn install` / `npm install` to install all the project dependencies.
 
 ## Available Scripts
 
