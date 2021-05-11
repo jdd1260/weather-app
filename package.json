@@ -42,7 +42,7 @@
   "devDependencies": {
     "gh-pages": "^2.2.0",
     "history": "^4.10.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mutationobserver-shim": "^0.3.5",
     "node-sass": "^4.13.1"
   }
